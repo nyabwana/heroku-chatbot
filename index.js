@@ -38,9 +38,14 @@ app.post('/webhook/', function(req, res){
 		if(event.message && event.message.text){
 			let text = event.message.text
 			let arr = text.split(" ")
-			let code = arr[0].toUpperCase()
-			let msisdn = arr[1]
-			sendText(sender, "Phone: "+msisdn+" has code "+code+" and therefore wins data!")
+			let cue = arr[0]
+			let code = arr[1].toUpperCase()
+			let msisdn = arr[2]
+			if (cue.toLowerCase() === "lite"){
+				sendText(sender, "Phone: "+msisdn+" has code "+code+" and therefore wins data!")
+			} else if (cue.toLowerCase() === "lite" && arr.length < 3){
+				sendText(sender, "Please ensure that you put the code and your phone number")
+			}
 		}
 	}
 	res.sendStatus(200)
