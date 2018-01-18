@@ -37,7 +37,10 @@ app.post('/webhook/', function(req, res){
 		let sender = event.sender.id
 		if(event.message && event.message.text){
 			let text = event.message.text
-			sendText(sender, "Text echo: "+text.substring(0,100))
+			let arr = text.split(" ")
+			let code = arr[0].toUpperCase()
+			let msisdn = arr[1]
+			sendText(sender, "Phone: "+msisdn+" has code "+code+" and therefore wins data!")
 		}
 	}
 	res.sendStatus(200)
